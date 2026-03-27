@@ -1,49 +1,42 @@
+ackage main 
 
-package main
-
-import (
-	"fmt"
-	"os"
+import(
+	  "fmt"
 )
-func add(a, b int) int {
 
-}
-
-// func add(a, b int) int {
-
-	// return a + b
-// }
 
 func main() {
-	//fmt.Println(add(2, 3))
-	// var num1 int
-	// var num2 int
-	 var operator string
-	
+	var number1 float64 
+	var number2 float64 
+	var operator string 
 
-	// fmt.Println("Enter value: ")
-	// fmt.Scanln(&num1)
+    fmt.Println()
 
-	// fmt.Println("Enter value: ")
-	// fmt.Scanln(&num2)
-    
-   
+	fmt.Println("enter value:")
+	fmt.Scan(&number1)
 
-//  add <a> <b>   → addition
-//  sub <a> <b>   → subtraction
-//  mul <a> <b>   → multiplication
-//  div <a> <b>   → division
 
-	// fmt.Println("")
-	// n, err := fmt.Scan(os.Stdin)
-	// if err != nil {
-	// 	fmt.Println("Error not present: ", err)
-	// 	return
-	// }
-	//fmt.Println("can be calculated: ", n)
+	fmt.Println("enter value:")
+	fmt.Scan(&number2)
+
+	fmt.Println("choose an operator: + - * /")
+	fmt.Scan(&operator)
+
 	switch operator {
-	case:
-		fmt.Println(num1, num2)
-	 }
+	case "+":
+	fmt.Printf("%f %s %f = %f", number1, operator, number2,  number1 + number2 )
+	case "-":
+	fmt.Printf("%f %s %f = %f", number1, operator, number2,  number1 - number2 )
+	case "*":
+	fmt.Printf("%f %s %f = %f", number1, operator, number2,  number1 + number2 )
+	case "/":
+	fmt.Printf("%f %s %f = %f", number1, operator, number2,  number1 / number2 )
+	if number2 == 0.0 {
+		fmt.Println("divide by zero")
+	}
+       default:
+	fmt.Println("invalid operator")
+	}
+
 
 }
