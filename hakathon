@@ -90,4 +90,31 @@ PHASE 1 IS DONE WHEN:
   → help displays usage.
   → Code is committed and pushed.
 
+package main
+
+import (
+	"bufio"
+	"fmt"
+	"os"
+)
+
+func main() {
+	// Create a scanner to read from standard input (os.Stdin)
+	scanner := bufio.NewScanner(os.Stdin)
+
+	fmt.Println("Enter text:")
+
+	// Scan through each line of input
+	for scanner.Scan() {
+		line := scanner.Text()
+		fmt.Printf("You entered: %s\n", line)
+	}
+
+	// Check for errors during scanning
+	if err := scanner.Err(); err != nil {
+		fmt.Fprintln(os.Stderr, "reading input:", err)
+	}
+}
+
+
 
