@@ -2,6 +2,7 @@ package main
 
 import (
 	//"encoding/base64"
+	//iuy65r4e3"errors"
 	"fmt"
 	"strconv"
 	"strings"
@@ -10,20 +11,10 @@ import (
 var value string
 var operation string
 
-// func hexToDec() {
-
-// return strconv.ParseBool(s)
-// v, err := strconv.ParseBool(do)
-// if err != nil {
-// 	return true, nil
-// } else {
-// 	return v, nil
-// }
-
-// }
-func hexToDec(s string) {
-
-	file, err := strconv.ParseInt(s, 16, 64)
+func hexToDec() {
+	fmt.Println("Enter the value: ")
+	fmt.Scan(&value)
+	file, err := strconv.ParseInt(value, 16, 64)
 	if err == nil {
 		fmt.Printf("hex %s -> decimal:%d\n", value, file)
 	} else {
@@ -31,44 +22,50 @@ func hexToDec(s string) {
 		fmt.Println(err)
 	}
 }
-func binToDec(s string) {
-	file, err := strconv.ParseInt(s, 2, 64)
+func binToDec() {
+	fmt.Println("Enter the value: ")
+	fmt.Scan(&value)
+	file, err := strconv.ParseInt(value, 2, 64)
 	if err == nil {
-		fmt.Printf("bin %s -> decimal:%d\n", value, file)
+		fmt.Printf("hex %s -> decimal:%d\n", value, file)
 	} else {
-		fmt.Println("an error occured")
+		fmt.Println("An error occured! ")
 		fmt.Println(err)
 	}
 
 }
-func decToHexAndBin(s string) (string, string, error) {
-	file, err := strconv.ParseInt(s, 10, 64)
-	if err != nil {
+func decToHexAndBin() {
+	fmt.Println("Enter the value: ")
+	fmt.Scan(&value)
+	new, err := strconv.Atoi(value)
+	if err == nil {
+		file1 := strconv.FormatInt(int64(new), 2)
+		file2 := strconv.FormatInt(int64(new), 16)
+		fmt.Printf("binary: %s\n", file1)
+		fmt.Printf("hexdecimal: %s\n", strings.ToUpper(file2))
 
-		return "", "", nil
+	} else {
+		fmt.Println("an error occured: try again")
+
 	}
-	y := strconv.FormatInt(file, 2)
-	d := strconv.FormatInt(file, 16)
-	return y, d, nil
+	// if err != nil {
+
+	// 	return "", "", nil
+	// }
+	// y := strconv.FormatInt(file, 2)
+	// d := strconv.FormatInt(file, 16)
+	// return y, d, nil
 
 }
 
 func main() {
 
 	for {
-		fmt.Println("Enter the value: ")
-
-		fmt.Scan(&value)
-		if value == "quit" {
-			fmt.Println("Thanks and goodbye!")
-			break
-		}
-
 		fmt.Println("Enter the operation: ")
 		fmt.Println("1.convert from hex to Decimal")
 		fmt.Println("2.convert from bin to decimal")
 		fmt.Println("3.convert from dec to binary and hexadecimal")
-		fmt.Scan(&operation)
+		fmt.Scanln(&operation)
 		if operation == "quit" {
 			fmt.Println("Thanks and goodbye!")
 			break
@@ -77,20 +74,13 @@ func main() {
 		switch operation {
 
 		case "1":
-			hexToDec(value)
+			hexToDec()
 
 		case "2":
-			binToDec(value)
+			binToDec()
 
 		case "3":
-			hex, bin, err := decToHexAndBin(value)
-			if err != nil {
-				fmt.Println("error while converting binary", err)
-				return
-			}
-			fmt.Printf("decimal: %s\n", value)
-			fmt.Printf("binary: %s\n", strings.ToUpper(hex))
-			fmt.Printf("hexadecimal: %s\n", strings.ToUpper(bin))
+			decToHexAndBin()
 
 		default:
 			fmt.Println("Invalid operation")
