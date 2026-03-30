@@ -21,9 +21,7 @@ func main() {
 
 		fmt.Println("choose an operator: + - * /, help")
 		fmt.Scan(&operator)
-      
-		
-		
+
 		if operator == "quit" {
 			fmt.Printf("goodbye and thankyou:")
 			break
@@ -35,15 +33,14 @@ func main() {
 		//    if gos == "" {
 		// 	fmt.Println("valid")
 		//    }
-		   
+
 		// }
-		
 
 		switch operator {
-		
+
 		case "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z":
 			fmt.Println("not numbers")
-		case"help":
+		case "help":
 			fmt.Println("go to https//go package.com for help")
 		case "+":
 			fmt.Printf("%.3f %s %.3f = %.3f\n", number1, operator, number2, number1+number2)
@@ -57,9 +54,8 @@ func main() {
 				fmt.Println("not divisible by zero")
 			}
 		// case "quit":
-			// fmt.Printf("good bye, thankyou")
+		// fmt.Printf("good bye, thankyou")
 
-			
 		default:
 			fmt.Println("invalid operator")
 
