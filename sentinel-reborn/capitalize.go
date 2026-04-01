@@ -1,37 +1,53 @@
 package main
 
 import (
-	"fmt"
 	"strings"
-	
 )
 
-func capitalize(s string) string {
-	e := "(cap)"
+func capitalizeWord(word string) string {
+	if len(word) == 0 {
+		return word
+	}
+	return strings.ToUpper(word[:1]) + word[1:]
+}
+func getCapCount(token string) int {
+	l
+	if token == "(cap)" {
+		return 1
+	}
 
-	d := strings.Fields(s)
+	token = strings.TrimPrefix(token, "(cap,")
+	token = strings.TrimSuffix(token, ")")
 
-	for i := 0; i < len(d); i++ {
-		if d[i] == e && i > 0 {
-			d[i-1] = strings.Title(d[i-1])
-			d = append(d[:i], d[i+1:]...)
+	n := 0
+	for _, ch := range token {
+		if ch >= '0' && ch <= '9' {
+			n = n*10 + int(ch-'0')
 		}
 	}
-	return strings.Join(d, " ")
 
+	if n <= 0 {
+		return 1
+	}
+	return n
 }
 
-//	func de(s string) []string {
-//		d := strings.Fields(s)
-//		for i := range d {
-//			if i < len(d)-1 {
-//				d[i] = strings.Title(d[i])
-//			}
-//			return d
-//		}
-//		return d
-//	}
-func main() {
-	fmt.Println(capitalize("hgfe bhdfgduo fhdf (cap 6)"))
-	// fmt.Println(de("this"),2)
+func capitalize(s string) string {
+	words := strings.Fields(s)
+	result := []string{}
+
+	for _, w := range words {
+		if strings.HasPrefix(w, "(cap") {
+			count := getCapCount(w)
+
+			for i := 0; i < count && i < len(result); i++ {
+				idx := len(result) - 1 - i
+				result[idx] = capitalizeWord(result[idx])
+			}
+		} else {
+			result = append(result, w)
+		}
+	}
+
+	return strings.Join(result, " ")
 }
