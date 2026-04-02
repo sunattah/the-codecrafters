@@ -10,14 +10,15 @@ func capitalizeWord(word string) string {
 	}
 	return strings.ToUpper(word[:1]) + word[1:]
 }
+
 func getCapCount(token string) int {
-	l
 	if token == "(cap)" {
 		return 1
 	}
 
 	token = strings.TrimPrefix(token, "(cap,")
 	token = strings.TrimSuffix(token, ")")
+	token = strings.TrimSpace(token) 
 
 	n := 0
 	for _, ch := range token {
