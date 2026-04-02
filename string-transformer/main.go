@@ -1,21 +1,26 @@
+// CodeCrafters — Operation Gopher Protocol
+// Module: String Transformer
+// Author: [sunday attah]
+// Squad:  [pointers]
+
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"os"
+	"slices"
 	"strings"
 )
 
 func upper(w string) string {
-	s := strings.Fields(w)
-	for i := 0; i < len(s); i++ {
-		s[i] = strings.ToUpper(s[i][0:])
-	}
-	return strings.Join(s, " ")
+	return strings.ToUpper(w)
+
 }
 func cap(a string) string {
 	d := strings.Fields(a)
 	for i := range d {
-		d[i] = strings.Title(string(d[i][0:]))
+		d[i] = strings.Title(string(strings.ToLower(d[i][0:])))
 
 	}
 	return strings.Join(d, " ")
@@ -34,31 +39,74 @@ func reverse(l string) string {
 	}
 	return strings.Join(f, "")
 }
+func underscore(s string) string {
+	f := strings.ReplaceAll(s, "! ", " ")
 
+	d := strings.Split(strings.ToLower(f), " ")
+	return strings.Join(d, "_")
+}
+
+func title() {
+	var smallWords = []string{"a", "an", "the", "and", "but",
+		"or", "for", "nor", "on", "at", "to", "by",
+		"in", "of", "up", "as", "is", "it"}
+
+	text := bufio.NewScanner(os.Stdin)
+	fmt.Println("sorry input another text/thesame text")
+	if text.Scan() {
+		line := text.Text()
+		words := strings.Fields(line)
+
+		for i, word := range words {
+			read := slices.Contains(smallWords, strings.ToLower(word))
+			if i == 0 || !read {
+				words[i] = strings.ToUpper(word[:1]) + strings.ToLower(word[1:])
+			} else {
+				words[i] = strings.ToLower(word)
+			}
+		}
+		fmt.Println(strings.Join(words, " "))
+	}
+}
 
 func main() {
 	var input string
+
+	scanner := bufio.NewScanner(os.Stdin)
 	for {
-		fmt.Println("<== Choose from the available inputs ==>")
+		fmt.Println("\033[33m<== Choose from the availables below ==>\033[0m.")
 		fmt.Println("upper")
 		fmt.Println("cap")
 		fmt.Println("low")
 		fmt.Println("reverse")
+		fmt.Println("underscore")
+		fmt.Println("title")
+		fmt.Println("== you must choose from the above options ==")
 		fmt.Scan(&input)
 		if input == "exit" {
 			fmt.Println("Shutting down String Transformer. Goodbye.")
 			break
 		}
 
+		fmt.Print("\033[34m input your value: \033[0m")
+
+		scanner.Scan()
+		value := scanner.Text()
+		value = strings.TrimSpace(value)
+
 		switch input {
 		case "upper":
-			upper("")
+			fmt.Println(upper(value))
 		case "cap":
-			cap("")
+			fmt.Println(cap(value))
 		case "low":
-			low("")
+			fmt.Println(low(value))
 		case "reverse":
-			reverse("")
+			fmt.Println(reverse(value))
+		case "underscore":
+			fmt.Println(underscore(value))
+		case "title":
+			title()
 
 		default:
 			fmt.Println("An invalid input: please type the appropriate value")
