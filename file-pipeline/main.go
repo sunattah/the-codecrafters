@@ -32,28 +32,47 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	// "strings"
 )
 
+func cap(s string) string {
+	d := strings.Fields(s)
+	for i := 0; i < len(d); i++ {
+		d[i] = strings.Title(string(strings.ToLower(d[i][0:])))
+	}
+	return strings.Join(d, " ")
+}
+func toUpper(s string) string {
+	return strings.ToUpper(s)
+}
+func todo(s string) string {
+	t := "TODO"
+	d := strings.ReplaceAll(s, t, "ACTION")
+	return d
+
+}
+func class(s string) string {
+	t := " CLASSIFIED"
+	d := strings.ReplaceAll(s, t, " [REDACTED]")
+	return d
+}
+func replace(s string) string {
+		t := strings.ReplaceAll(s, " -", "")
+	a := strings.ReplaceAll(t, " ", "")
+	return a
+}
 func main() {
-	var input string
-	fmt.Println("<===THE RISE OF BANTITH IN CONGO===>")
-	fmt.Println("press ENTER")
-	fmt.Scan(&input)
 
 	file, err := os.OpenFile("sample.txt", os.O_RDONLY|os.O_CREATE, 0644)
 	if err != nil {
 		fmt.Println("invalid operation while opening file")
 	}
-	
-
+	defer file.Close()
 	doe, err := os.ReadFile("sample.txt")
-	 d := strings.Title(string(doe))
-	 fmt.Println(d)
 	if err != nil {
 		fmt.Println("error while reading file")
 	}
-	fmt.Println(strings.ToUpper(string(doe)+"\n")) //+ (strings.ToLower(string(doe))))
-	defer file.Close()
+	fmt.Println(string(doe)) 
 	file.WriteString("sample.txt")
 
 }
