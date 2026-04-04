@@ -29,6 +29,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"os"
 	"strings"
@@ -57,22 +58,53 @@ func class(s string) string {
 	return d
 }
 func replace(s string) string {
-		t := strings.ReplaceAll(s, " -", "")
+	t := strings.ReplaceAll(s, " -", "")
 	a := strings.ReplaceAll(t, " ", "")
 	return a
 }
+
 func main() {
 
-	file, err := os.OpenFile("sample.txt", os.O_RDONLY|os.O_CREATE, 0644)
-	if err != nil {
-		fmt.Println("invalid operation while opening file")
+	if len(os.Args) < 3 {
+		fmt.Println("Usage: go run main.go input.txt output.txt")
+		return
 	}
-	defer file.Close()
-	doe, err := os.ReadFile("sample.txt")
-	if err != nil {
-		fmt.Println("error while reading file")
-	}
-	fmt.Println(string(doe)) 
-	file.WriteString("sample.txt")
 
+	inputFile := os.Args[1]
+	outputFile := os.Args[2]
+
+	data, err := os.ReadFile(inputFile)
+	if err != nil {
+		fmt.Println("Error reading input file:", err)
+		return
+	}
+
+	lines := strings.Split(strings.TrimSpace(string(data)), "\n")
+
+	var processed []string
+
+	for _, line := range lines {
+		result := cap(line)
+		result = toUpper(result)
+		result = todo(result)
+		result = class(result)
+		processed = append(processed, result)
+	}
+
+	out, err := os.Create(outputFile)
+	if err != nil {
+		fmt.Println("Error creating output file:", err)
+		return
+	}
+	defer out.Close()
+
+	writer := bufio.NewWriter(out)
+
+	for i, line := range processed {
+		fmt.Fprintf(writer, "%d. %s\n", i+1, line)
+	}
+
+	writer.Flush()
+
+	fmt.Println("Done! Check", outputFile, "for your results.")
 }
