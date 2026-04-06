@@ -1,31 +1,3 @@
-// CodeCrafters — Operation Gopher Protocol
-// Module: File Pipeline
-// Author: [Your Name]
-// Squad:  [Your Squad Name]
-
-// ═══════════════════════════════════════════
-// SQUAD PIPELINE CONTRACT
-// Squad: [Squad Name]
-// ───────────────────────────────────────────
-// Input line types:
-//   [list what your squad agreed on]
-//
-// Transformation rules (in order):
-//   1. [Rule 1]
-//   2. [Rule 2]
-//   3. [Rule 3]
-//   4. [Rule 4]
-//   5. [Rule 5]
-//
-// Output format:
-//   [Header: yes/no — exact text if yes]
-//   [Line numbering format]
-//   [Summary block: yes/no — fields if yes]
-//
-// Terminal summary fields:
-//   [List what your squad agreed on]
-// ═══════════════════════════════════════════
-
 package main
 
 import (
@@ -33,34 +5,40 @@ import (
 	"fmt"
 	"os"
 	"strings"
-	// "strings"
 )
 
-func cap(s string) string {
-	d := strings.Fields(s)
-	for i := 0; i < len(d); i++ {
-		d[i] = strings.Title(string(strings.ToLower(d[i][0:])))
+func capWords(s string) string {
+	words := strings.Fields(s)
+	for i := 0; i < len(words); i++ {
+		words[i] = strings.Title(strings.ToLower(words[i]))
 	}
-	return strings.Join(d, " ")
+	return strings.Join(words, " ")
 }
+
 func toUpper(s string) string {
 	return strings.ToUpper(s)
 }
-func todo(s string) string {
-	t := "TODO"
-	d := strings.ReplaceAll(s, t, "ACTION")
-	return d
 
+func todo(s string) string {
+	return strings.ReplaceAll(s, "TODO", "ACTION")
 }
+
 func class(s string) string {
-	t := " CLASSIFIED"
-	d := strings.ReplaceAll(s, t, " [REDACTED]")
-	return d
+	return strings.ReplaceAll(s, "CLASSIFIED", "[REDACTED]")
 }
+
 func replace(s string) string {
-	t := strings.ReplaceAll(s, " -", "")
-	a := strings.ReplaceAll(t, " ", "")
-	return a
+	s = strings.ReplaceAll(s, " -", "")
+	s = strings.ReplaceAll(s, " ", " ")
+	return s
+}
+
+func reverse(s string) string {
+	runes := []rune(s)
+	for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {
+		runes[i], runes[j] = runes[j], runes[i]
+	}
+	return string(runes)
 }
 
 func main() {
@@ -84,10 +62,14 @@ func main() {
 	var processed []string
 
 	for _, line := range lines {
-		result := cap(line)
-		result = toUpper(result)
+		result := line
+
 		result = todo(result)
 		result = class(result)
+		result = replace(result)
+		result = reverse(result)
+		result = capWords(result)
+
 		processed = append(processed, result)
 	}
 
