@@ -67,7 +67,7 @@ func main() {
 		result = todo(result)
 		result = class(result)
 		result = replace(result)
-		result = reverse(result)
+		//result = reverse(result)
 		result = capWords(result)
 
 		processed = append(processed, result)
