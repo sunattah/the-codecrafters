@@ -1,63 +1,49 @@
-package main
+  package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
 func main() {
-	var number1 float64
-	var number2 float64
+	var input1 int
+	var input2 int
 	var operator string
-	//var gos string
-	//var race string
-	//var dog string
 	for {
+		fmt.Println("\033[34mSCIENTIFIC CAL READY TO SOLVE:\033[0m ")
+		fmt.Println("\033[33m<== please insert any value ==>\033[0m")
 
-		fmt.Println("enter first value:")
-		fmt.Scan(&number1)
+		fmt.Print("input the first value: ")
+		fmt.Scan(&input1)
 
-		fmt.Println("enter second value:")
-		fmt.Scan(&number2)
+		fmt.Println("input the second value: ")
 
-		fmt.Println("choose an operator: + - * /, help")
+		fmt.Scan(&input2)
+
+		fmt.Println("choose an operator to use: + / * - help ")
 		fmt.Scan(&operator)
-
 		if operator == "quit" {
-			fmt.Printf("goodbye and thankyou:")
+			fmt.Println("\033[31mThank you for using this calc and goodbye\033[0m")
 			break
 		}
-		// switch gos {
-		// case"[a-z]":
-
-		// 	fmt.Println("invalid")
-		//    if gos == "" {
-		// 	fmt.Println("valid")
-		//    }
-
-		// }
 
 		switch operator {
-
-		case "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z":
-			fmt.Println("not numbers")
 		case "help":
-			fmt.Println("go to https//go package.com for help")
+			fmt.Println("check the calc documentation")
 		case "+":
-			fmt.Printf("%.3f %s %.3f = %.3f\n", number1, operator, number2, number1+number2)
+			fmt.Printf("%d %s %d = %d\n", input1, operator, input2, input1+input2)
 		case "-":
-			fmt.Printf("%.3f %s %.3f = %.3f\n", number1, operator, number2, number1-number2)
+			fmt.Printf("%d %s %d = %d\n", input1, operator, input2, input1-input2)
 		case "*":
-			fmt.Printf("%.3f %s %.3f = %.3f\n", number1, operator, number2, number1+number2)
+			fmt.Printf("%d %s %d = %d\n", input1, operator, input2, input1*input2)
 		case "/":
-			fmt.Printf("%.3f %s %.3f = %.3f\n", number1, operator, number2, number1/number2)
-			if number2 == 0.00 {
-				fmt.Println("not divisible by zero")
+
+			if input2 == 0 {
+				fmt.Println("it is not divisible")
+			} else {
+				fmt.Printf("%d %s %d = %d\n", input1, operator, input2, input1/input2)
+
 			}
-		// case "quit":
-		// fmt.Printf("good bye, thankyou")
 
 		default:
-			fmt.Println("invalid operator")
+			fmt.Println("error, it is not the proper operation, please insert the correct operation, and value to prevent panicing")
 
 		}
 		continue
