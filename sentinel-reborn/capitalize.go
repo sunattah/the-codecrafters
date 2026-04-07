@@ -1,6 +1,7 @@
 package main
 
 import (
+	"strconv"
 	"strings"
 )
 
@@ -12,22 +13,18 @@ func capitalizeWord(word string) string {
 }
 
 func getCapCount(token string) int {
-	if token == "(cap)" {
+	
+	if strings.EqualFold(token, "(cap)") {
 		return 1
 	}
 
+	token = strings.ToLower(token)
 	token = strings.TrimPrefix(token, "(cap,")
 	token = strings.TrimSuffix(token, ")")
-	token = strings.TrimSpace(token) 
+	token = strings.TrimSpace(token)
 
-	n := 0
-	for _, ch := range token {
-		if ch >= '0' && ch <= '9' {
-			n = n*10 + int(ch-'0')
-		}
-	}
-
-	if n <= 0 {
+	n, err := strconv.Atoi(token)
+	if err != nil || n <= 0 {
 		return 1
 	}
 	return n
@@ -38,9 +35,8 @@ func capitalize(s string) string {
 	result := []string{}
 
 	for _, w := range words {
-		if strings.HasPrefix(w, "(cap") {
+		if strings.HasPrefix(strings.ToLower(w), "(cap") {
 			count := getCapCount(w)
-
 			for i := 0; i < count && i < len(result); i++ {
 				idx := len(result) - 1 - i
 				result[idx] = capitalizeWord(result[idx])
